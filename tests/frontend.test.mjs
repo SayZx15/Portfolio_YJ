@@ -7,7 +7,7 @@ import { createContext, runInContext } from 'node:vm';
 import { projects } from '../src/content.js';
 const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
 const script = html.match(/<script type="module">([\s\S]*?)<\/script>/)?.[1];
-const addedIds = ['wifi-scanner','pokemon-gan','network-chess','ultrasonic-scanner','ticket-to-ride','routine-manager','unix-shell','video-pulse','multicycle-processor','oop-arena','stm32-interfaces'];
+const addedIds = ['wifi-scanner','pokemon-gan','network-chess','ultrasonic-scanner','ticket-to-ride','routine-manager','unix-shell','video-pulse','multicycle-processor','crane-game-simulator','mywidget','oop-arena','stm32-interfaces'];
 const labIds = ['oop-arena','stm32-interfaces'];
 const cardIds = markup => [...markup.matchAll(/data-project="([^"]+)"/g)].map(match => match[1]);
 
@@ -46,10 +46,10 @@ function boot(lang='fr') {
 }
 
 for (const lang of ['fr','en']) {
-  test(`Export renders all 16 selected works in ${lang.toUpperCase()} with valid anchors and labels`,()=>{
+  test(`Export renders all 18 selected works in ${lang.toUpperCase()} with valid anchors and labels`,()=>{
     const page=boot(lang), output=page.markup();
     assert.equal(page.document.documentElement.lang,lang);
-    assert.equal(cardIds(output).length,16);
+    assert.equal(cardIds(output).length,18);
     for(const id of addedIds) assert.ok(cardIds(output).includes(id),`${id} is included`);
     assert.ok(output.includes(lang==='fr'?'Du signal':'From signals'));
     assert.ok(output.includes(`./public/cv.html?lang=${lang}`));
@@ -57,7 +57,13 @@ for (const lang of ['fr','en']) {
     assert.equal(new Set(ids).size,ids.length,'IDs, including SVG resources, must be unique');
     for(const [,anchor]of output.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(anchor),`Anchor ${anchor} exists`);
     for(const [,target]of output.matchAll(/\bfor="([^"]+)"/g))assert.ok(ids.includes(target),`Form field ${target} exists`);
-    assert.ok(output.includes(lang==='fr'?'14 projets · 2 TP':'14 projects · 2 labs'));
+    assert.ok(output.includes(lang==='fr'?'16 projets · 2 TP':'16 projects · 2 labs'));
+    for(const id of ['crane-game-simulator','mywidget']) {
+      const card=output.match(new RegExp(`<article[^>]+aria-labelledby="project-title-${id}"[\\s\\S]*?<\\/article>`))?.[0];
+      assert.ok(card,`${id} has a project card`);
+      assert.ok(card.includes(lang==='fr'?'En cours de développement':'Work in progress'));
+      assert.ok(card.includes(lang==='fr'?'Projet personnel':'Personal project'));
+    }
     assert.match(output,/<div id="more-projects"[^>]+hidden>/);
   });
   test(`All detail dialogs open with translated text and matching illustrations (${lang})`,async()=>{
@@ -70,6 +76,7 @@ for (const lang of ['fr','en']) {
       assert.ok(!details.includes('undefined'));
       assert.equal(page.elements.get('#project-dialog').open,true);
       if(project.kind==='lab')assert.ok(details.includes(lang==='fr'?'Travaux pratiques':'Practical lab'));
+      if(['crane-game-simulator','mywidget'].includes(project.id))assert.ok(details.includes(lang==='fr'?'En cours de développement':'Work in progress'));
       if(project[lang].note)assert.ok(details.includes(lang==='fr'?'À propos de cette réalisation':'About this work'));
       await page.click({action:'close-dialog'});
       assert.equal(page.elements.get('#project-dialog').open,false);
@@ -77,7 +84,7 @@ for (const lang of ['fr','en']) {
   });
 }
 
-test('The two selected practical labs are separated from the 14 projects',()=>{
+test('The two selected practical labs are separated from the 16 projects',()=>{
   const page=boot();
   const markup=page.markup();
   const [main,labs]=markup.split('<section class="catalog-labs"');
@@ -95,8 +102,8 @@ test('Lab filter displays only the two labs and updates pressed state and count'
 test('Domain filters keep lab identification and include the expected projects',async()=>{
   const page=boot();
   await page.click({filter:'software'});
-  assert.deepEqual(cardIds(page.elements.get('#project-catalog').innerHTML),['network-chess','raytracing','ticket-to-ride','routine-manager','unix-shell','oop-arena']);
-  assert.equal(page.elements.get('.project-counter').textContent,'5 projets · 1 TP');
+  assert.deepEqual(cardIds(page.elements.get('#project-catalog').innerHTML),['network-chess','raytracing','ticket-to-ride','routine-manager','unix-shell','crane-game-simulator','mywidget','oop-arena']);
+  assert.equal(page.elements.get('.project-counter').textContent,'7 projets · 1 TP');
   await page.click({filter:'signal'});
   assert.deepEqual(cardIds(page.elements.get('#project-catalog').innerHTML),['radar','pokemon-gan','video-pulse']);
   assert.equal(page.elements.get('.project-counter').textContent,'3 projets');
@@ -108,11 +115,11 @@ test('Expand and collapse show all projects without losing the practical-lab sec
   const expand=await page.click({action:'toggle-projects'});
   assert.equal(page.elements.get('#more-projects').hidden,false);
   assert.equal(expand.attributes['aria-expanded'],'true');
-  assert.equal(page.elements.get('.project-progress').textContent,'14 projets affichés sur 14');
+  assert.equal(page.elements.get('.project-progress').textContent,'16 projets affichés sur 16');
   const collapse=await page.click({action:'toggle-projects'});
   assert.equal(page.elements.get('#more-projects').hidden,true);
   assert.equal(collapse.attributes['aria-expanded'],'false');
-  assert.equal(page.elements.get('.project-progress').textContent,'5 projets affichés sur 14');
+  assert.equal(page.elements.get('.project-progress').textContent,'5 projets affichés sur 16');
   await page.click({filter:'signal'});await page.click({filter:'all'});
   assert.match(page.elements.get('#project-catalog').innerHTML,/<div id="more-projects"[^>]+hidden>/);
 });

@@ -44,6 +44,8 @@
 .project-lab .project-card-title{font-size:22px}
 .project-lab .project-description{min-height:0!important}
 .art-wifi,.art-stm32{background:#dde8dc}
+.art-crane{background:#e0eaeb}
+.art-widgets{background:#e5dfec}
 .art-gan,.art-arena{background:#e6e0ee}
 .art-chess,.art-routes,.art-routines{background:#eee7d6}
 .art-terminal,.art-ultrasonic{background:#263e35}

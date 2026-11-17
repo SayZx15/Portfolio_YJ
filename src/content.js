@@ -13,10 +13,10 @@ export const content = {
     aboutText: 'J’aime comprendre comment les choses fonctionnent, puis leur donner une forme concrète. Mon parcours en Électronique et Informatique m’amène à passer du signal au code, de la simulation au système.',
     aboutMore: 'Après un stage de recherche sur les radars à Xi’an, je poursuis ma cinquième année en échange à l’Université de Kyoto. Un autre pays, de nouvelles perspectives et toujours la même envie d’apprendre.',
     aboutLink: 'Découvrir mon parcours', degree: 'Élève ingénieur', specialty: 'Hyperfréquences & télécommunications', university: 'Polytech Sorbonne', exchange: 'En échange à l’Université de Kyoto',
-    projectLabel: '02 / PROJETS & PRATIQUE', projectTitle: 'Des idées mises\nen pratique.', projectIntro: 'Projets de recherche, réalisations académiques et travaux pratiques : de la théorie au concret.',
+    projectLabel: '02 / PROJETS & PRATIQUE', projectTitle: 'Des idées mises\nen pratique.', projectIntro: 'Recherche, projets personnels, réalisations académiques et travaux pratiques : de la théorie au concret.',
     filters: ['Tous', 'Signal & IA', 'Embarqué', 'Logiciel', 'TP'], details: 'Découvrir le projet', detailsLab: 'Découvrir le TP', projectCount: 'réalisations',
     projectsHeading: 'Projets & recherche', labsHeading: 'Travaux pratiques', labsIntro: 'Des exercices de cours pour mettre en pratique la programmation et les systèmes embarqués.',
-    projectTypes: { project: 'Projet académique', research: 'Recherche', lab: 'Travaux pratiques' }, projectStatuses: { exploration: 'Exploration', prototype: 'Prototype', study: 'Étude' },
+    projectTypes: { project: 'Projet académique', personal: 'Projet personnel', research: 'Recherche', lab: 'Travaux pratiques' }, projectStatuses: { exploration: 'Exploration', prototype: 'Prototype', study: 'Étude', wip: 'En cours de développement' },
     projectNote: 'À propos de cette réalisation', projectRepository: 'Voir le code sur GitHub', projectReferences: 'Ressources & crédits',
     projectResults: '{projects} · {labs}', projectsOnly: '{count} projets', projectOne: '1 projet', labsOnly: '{count} TP', labOne: '1 TP',
     showMoreProjects: 'Voir les {count} autres projets', showFewerProjects: 'Réduire la liste', projectsShowing: '{visible} projets affichés sur {total}',
@@ -45,9 +45,9 @@ export const content = {
     aboutText: 'I enjoy understanding how things work, then turning that understanding into something tangible. My background in Electronics and Computer Engineering takes me from signals to code, from simulation to systems.',
     aboutMore: 'After a radar research internship in Xi’an, I’m spending my fifth year on exchange at Kyoto University. A new country, new perspectives, and the same desire to keep learning.',
     aboutLink: 'Explore my journey', degree: 'Engineering student', specialty: 'Radio frequencies & telecommunications', university: 'Polytech Sorbonne', exchange: 'On exchange at Kyoto University',
-    projectLabel: '02 / PROJECTS & PRACTICE', projectTitle: 'Ideas put\ninto practice.', projectIntro: 'Research, academic projects and practical labs: connecting theory to something tangible.', filters: ['All', 'Signal & AI', 'Embedded', 'Software', 'Labs'], details: 'Explore project', detailsLab: 'Explore lab', projectCount: 'works',
+    projectLabel: '02 / PROJECTS & PRACTICE', projectTitle: 'Ideas put\ninto practice.', projectIntro: 'Research, personal and academic projects, and practical labs: connecting theory to something tangible.', filters: ['All', 'Signal & AI', 'Embedded', 'Software', 'Labs'], details: 'Explore project', detailsLab: 'Explore lab', projectCount: 'works',
     projectsHeading: 'Projects & research', labsHeading: 'Practical labs', labsIntro: 'Course exercises to put programming and embedded systems into practice.',
-    projectTypes: { project: 'Academic project', research: 'Research', lab: 'Practical lab' }, projectStatuses: { exploration: 'Exploration', prototype: 'Prototype', study: 'Study' },
+    projectTypes: { project: 'Academic project', personal: 'Personal project', research: 'Research', lab: 'Practical lab' }, projectStatuses: { exploration: 'Exploration', prototype: 'Prototype', study: 'Study', wip: 'Work in progress' },
     projectNote: 'About this work', projectRepository: 'View code on GitHub', projectReferences: 'Resources & credits',
     projectResults: '{projects} · {labs}', projectsOnly: '{count} projects', projectOne: '1 project', labsOnly: '{count} labs', labOne: '1 lab',
     showMoreProjects: 'Show {count} more projects', showFewerProjects: 'Show fewer projects', projectsShowing: 'Showing {visible} of {total} projects',
@@ -730,6 +730,78 @@ export const projects = [
     ],
     "kind": "project",
     "includeInCv": true
+  },
+  {
+    "id": "crane-game-simulator",
+    "category": "software",
+    "kind": "personal",
+    "status": "wip",
+    "visual": "crane",
+    "year": "2026",
+    "tags": ["Godot", "3D", "Jolt Physics"],
+    "fr": {
+      "title": "CraneGameSimulator",
+      "subtitle": "Simulation de machine à pince",
+      "context": "Projet personnel · Développement en cours",
+      "description": "Les premières bases d’un simulateur 3D de machine à pince, avec une boîte, deux barres de support et des interactions physiques.",
+      "goal": "Construire progressivement une simulation de machine à pince pour explorer la physique des objets et les mécaniques de jeu.",
+      "work": [
+        "Création d’une première scène 3D dans Godot, avec caméra et éclairage.",
+        "Mise en place d’une boîte dynamique et de deux supports statiques avec leurs formes de collision.",
+        "Premiers essais de chute et de contact avec le moteur Jolt Physics."
+      ],
+      "note": "Projet à ses débuts : la scène physique est en place ; la pince et les commandes de jeu restent à développer."
+    },
+    "en": {
+      "title": "CraneGameSimulator",
+      "subtitle": "Claw machine simulation",
+      "context": "Personal project · Work in progress",
+      "description": "The first foundations of a 3D claw machine simulator, with a box, two support bars and physical interactions.",
+      "goal": "Gradually build a claw machine simulation to explore object physics and gameplay mechanics.",
+      "work": [
+        "Created an initial 3D scene in Godot with a camera and lighting.",
+        "Set up a dynamic box and two static supports with collision shapes.",
+        "Started experimenting with falling objects and contact using Jolt Physics."
+      ],
+      "note": "Early development: the physics scene is in place; the claw and gameplay controls are still to be developed."
+    },
+    "stack": ["Godot", "Jolt Physics", "RigidBody3D", "CollisionShape3D"]
+  },
+  {
+    "id": "mywidget",
+    "category": "software",
+    "kind": "personal",
+    "status": "wip",
+    "visual": "widgets",
+    "year": "2026",
+    "tags": ["Swift", "SwiftUI", "iOS"],
+    "fr": {
+      "title": "MyWidget",
+      "subtitle": "Widgets personnalisables pour iPhone",
+      "context": "Projet personnel · Apprentissage du développement iOS",
+      "description": "Une application iOS en préparation pour réunir plusieurs widgets personnalisables, tout en apprenant Swift et SwiftUI.",
+      "goal": "Créer une collection de widgets iPhone avec WidgetKit, dont un widget vinyle lié à Spotify.",
+      "work": [
+        "Mise en place du projet Xcode et de la structure de l’application SwiftUI.",
+        "Premiers exercices d’interface, de boutons et de gestion d’état avec @State.",
+        "Préparation des prochaines étapes vers les widgets personnalisables."
+      ],
+      "note": "Développement en cours : l’application est au stade des premières interfaces. Les widgets WidgetKit et l’intégration Spotify sont des fonctionnalités prévues."
+    },
+    "en": {
+      "title": "MyWidget",
+      "subtitle": "Customisable iPhone widgets",
+      "context": "Personal project · Learning iOS development",
+      "description": "An iOS app in early development to bring together several customisable widgets while learning Swift and SwiftUI.",
+      "goal": "Build a collection of iPhone widgets with WidgetKit, including a vinyl-style widget linked to Spotify.",
+      "work": [
+        "Set up the Xcode project and SwiftUI application structure.",
+        "Practised interfaces, buttons and state management with @State.",
+        "Prepared the next steps towards customisable widgets."
+      ],
+      "note": "Work in progress: the app is at the initial interface stage. WidgetKit widgets and Spotify integration are planned features."
+    },
+    "stack": ["Swift", "SwiftUI", "Xcode", "iOS"]
   },
   {
     "id": "oop-arena",
