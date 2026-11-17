@@ -1,0 +1,13 @@
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { apiFromEnv, apiServer } from './app.mjs';
+import { staticHandler } from './static.mjs';
+import { generateCv } from '../scripts/generate-cv.mjs';
+if (!process.argv.includes('--dist')) await generateCv();
+const root = resolve(fileURLToPath(new URL('..', import.meta.url)), process.argv.includes('--dist') ? 'dist' : '.');
+const serve = staticHandler(root);
+const api = apiFromEnv();
+const port = Number(process.env.DEV_PORT || 5173);
+const server = apiServer((req, res) => req.url.startsWith('/api/') ? api(req, res) : serve(req, res));
+server.listen(port, '127.0.0.1', () => console.log(`Portfolio: http://127.0.0.1:${port}`));
+for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => server.close(() => process.exit(0)));
